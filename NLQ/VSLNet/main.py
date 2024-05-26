@@ -104,8 +104,8 @@ def main_vslnet(configs, parser):
             configs=configs, word_vectors=dataset.get("word_vector", None)
         ).to(device)
 
-        #for freeze
-        for p in model.
+        # # for freeze
+        # for p in model.
 
         optimizer, scheduler = build_optimizer_and_scheduler(model, configs=configs)
         # start training
