@@ -25,7 +25,8 @@ from utils.runner_utils import (
 
 def main_vslnet(configs, parser):
     print(f"Running with {configs}", flush=True)
-
+    freeze_stat =  configs.freeze
+    print("Freeze status: ", freeze_stat)
     # set tensorflow configs
     set_th_config(configs.seed)
 
@@ -101,6 +102,10 @@ def main_vslnet(configs, parser):
         model = VSLNet(
             configs=configs, word_vectors=dataset.get("word_vector", None)
         ).to(device)
+
+        #for freeze
+        for p in model.
+
         optimizer, scheduler = build_optimizer_and_scheduler(model, configs=configs)
         # start training
         best_metric = -1.0
