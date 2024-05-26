@@ -27,6 +27,7 @@ def main_vslnet(configs, parser):
     print(f"Running with {configs}", flush=True)
     freeze_stat =  configs.freeze
     print("Freeze status: ", freeze_stat)
+    print("Freeze status =1?:", freeze_stat==1)
     # set tensorflow configs
     set_th_config(configs.seed)
 
