@@ -298,6 +298,7 @@ def main_vslnet(configs, parser):
                 ),
             )
 
+        # see the learned_weights
         print_learned_weights(model)
 
 
@@ -327,12 +328,10 @@ def main_vslnet(configs, parser):
         )
         print(score_str, flush=True)
 
-
 def print_learned_weights(model):
     for name, param in model.named_parameters():
         if param.requires_grad:
             print(f"Layer: {name} | Weights: {param.data}")
-
 
 def main_vslbase(configs, parser):
     print(f"Running with {configs}", flush=True)
