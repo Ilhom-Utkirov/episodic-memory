@@ -120,11 +120,9 @@ def main_vslnet(configs, parser):
             if not os.path.exists(model_path):
                 raise FileNotFoundError(f"The Path: {model_path} does not exist!")
             else:
-                 model.load_state_dict(torch.load(model_path))
+                model.load_state_dict(torch.load(model_path))
         else:
             print("Not Loading or Freezing model ... ")
-
-
 
         ### Start Freezing layers of the VSLNet
         print("Freezing the some layers of the VSLNet model!")
@@ -300,6 +298,9 @@ def main_vslnet(configs, parser):
                 ),
             )
 
+        print_learned_weights(model)
+
+
     elif configs.mode.lower() == "test":
         if not os.path.exists(model_dir):
             raise ValueError("No pre-trained weights exist")
@@ -325,6 +326,12 @@ def main_vslnet(configs, parser):
             result_save_path=result_save_path,
         )
         print(score_str, flush=True)
+
+
+def print_learned_weights(model):
+    for name, param in model.named_parameters():
+        if param.requires_grad:
+            print(f"Layer: {name} | Weights: {param.data}")
 
 
 def main_vslbase(configs, parser):
@@ -408,7 +415,7 @@ def main_vslbase(configs, parser):
             configs=configs, word_vectors=dataset.get("word_vector", None)
         ).to(device)
 
-        # Start saving the model
+        # Start loading the model
         if freeze_stat == 1:
             # Load the state dictionary from the .pth file
             # Construct the path to the saved .pth file
@@ -423,7 +430,6 @@ def main_vslbase(configs, parser):
 
         ### Start Freezing layers of the VSLNet
         print("Freezing the some layers of the VSLNet model!")
-
         if freeze_stat == 1:
             layers_to_freeze = [
                 model.embedding_net,
@@ -598,7 +604,6 @@ def main_vslbase(configs, parser):
                         # filter_checkpoints(model_dir, suffix="t7", max_to_keep=3)
                         if freeze_stat == 0:
                             filter_checkpoints(model_dir, suffix="pth", max_to_keep=3)
-
 
                     model.train()
 
