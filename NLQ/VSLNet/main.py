@@ -299,7 +299,7 @@ def main_vslnet(configs, parser):
             )
 
         # see the learned_weights
-        print_learned_weights(model)
+        # print_learned_weights(model)
 
 
     elif configs.mode.lower() == "test":
